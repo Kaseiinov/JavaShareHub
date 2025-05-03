@@ -35,6 +35,15 @@ public class GlobalControllerAdvice {
         return "errors/error";
     }
 
+    @ExceptionHandler(Exception.class)
+    public String handleAllExceptions(Model model, HttpServletRequest request, Exception ex) {
+        model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+        model.addAttribute("reason", "Something went wrong");
+        model.addAttribute("message", ex.getMessage());
+        model.addAttribute("path", request.getRequestURI());
+        return "errors/error";
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponseBody> validationHandler(MethodArgumentNotValidException e) {
         return new ResponseEntity<>(errorService.makeResponse(e.getBindingResult()), HttpStatus.BAD_REQUEST);
