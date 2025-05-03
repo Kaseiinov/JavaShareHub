@@ -4,9 +4,11 @@
     <#list files as file>
         <div class="card w-100 mb-3" style="width: 18rem;">
             <div class="card-body">
-                <h5 class="card-title">${file.fileName}</h5>
+                <h5 class="card-title">Name - ${file.fileName}</h5>
                 <p>Status - ${file.status}</p>
-                <a href="/files/download/${file.fileName}" class="card-link">Download</a>
+                <#if file.status == 'PUBLIC'>
+                    <a href="/files/download/${file.fileName}" class="card-link">Download</a>
+                </#if>
             </div>
         </div>
     </#list>

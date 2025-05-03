@@ -31,23 +31,19 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Vacancies
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Vacancies</a></li>
-                    </ul>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/files/upload">Upload file</a>
                 </li>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Resumes
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Resumes</a></li>
-                    </ul>
-                </li>
+
+<#--                <li class="nav-item dropdown">-->
+<#--                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">-->
+<#--                        Resumes-->
+<#--                    </a>-->
+<#--                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+<#--                        <li><a class="dropdown-item" href="#">Resumes</a></li>-->
+<#--                    </ul>-->
+<#--                </li>-->
 
             </ul>
 

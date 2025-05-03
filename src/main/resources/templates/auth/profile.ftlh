@@ -13,7 +13,14 @@
         </div>
 
     </div>
-
+    <#list files as file>
+        <div class="card w-100 mb-3" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Name - ${file.fileName}</h5>
+                <p>Status - ${file.status}</p>
+            </div>
+        </div>
+    </#list>
     </body>
 
 </@main.layout>

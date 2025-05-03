@@ -3,7 +3,8 @@ package kg.attractor.javasharehub.service.impl;
 import kg.attractor.javasharehub.dto.CategoryDto;
 import kg.attractor.javasharehub.dto.FileDto;
 import kg.attractor.javasharehub.dto.UserDto;
-import kg.attractor.javasharehub.exceptions.CategoryNotFoundException;
+import kg.attractor.javasharehub.exceptions.FileNotFoundException;
+import kg.attractor.javasharehub.exceptions.UserNotFoundException;
 import kg.attractor.javasharehub.model.Category;
 import kg.attractor.javasharehub.model.File;
 import kg.attractor.javasharehub.model.User;
@@ -16,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,6 +29,32 @@ public class FileServiceImpl implements FileService {
     private final UserRepository userRepository;
     private final CategoryRepository categoryRepository;
     private final FileUtil fileUtil;
+
+    @Override
+    public List<FileDto> findAllFilesByUser(String email){
+        List<File> files = fileRepository.findAllByUserEmail(email);
+        return fileListBuilder(files);
+    }
+
+    @Override
+    public FileDto findByName(String fileName){
+        File file = fileRepository.findByFileName(fileName).orElseThrow(FileNotFoundException::new);
+        return fileBuilder(file);
+    }
+
+    @Override
+    public void download(String fileName, Authentication auth){
+        User user = userRepository.findByEmail(auth.getName())
+                .orElseThrow(UserNotFoundException::new);
+
+        File existingFile = fileRepository.findByFileName(fileName).orElseThrow(FileNotFoundException::new);
+
+        // 3. Связываем файл с пользователем
+        if (!existingFile.getUsers().contains(user)) {
+            existingFile.getUsers().add(user);
+            fileRepository.save(existingFile);
+        }
+    }
 
     @Override
     public void upload(FileDto fileDto){
@@ -86,5 +114,34 @@ public class FileServiceImpl implements FileService {
                         .build())
                 .toList();
         return new PageImpl<>(filesDto, pageable, files.getTotalElements());
+    }
+
+    public List<FileDto> fileListBuilder(List<File> files) {
+        return files
+                .stream()
+                .map(e -> FileDto.builder()
+                        .id(e.getId())
+                        .fileName(e.getFileName())
+                        .categoryId(e.getCategory().getId())
+                        .Users(e.getUsers().stream().map(u -> UserDto.builder()
+                                        .id(u.getId())
+                                        .email(u.getEmail())
+                                        .password(u.getPassword())
+                                        .enabled(u.getEnabled())
+                                        .build())
+                                .toList())
+                        .status(e.getStatus().toUpperCase())
+                        .build())
+                .toList();
+
+    }
+
+    public FileDto fileBuilder(File file){
+        return FileDto.builder()
+                .id(file.getId())
+                .fileName(file.getFileName())
+                .categoryId(file.getCategory().getId())
+                .status(file.getStatus().toUpperCase())
+                .build();
     }
 }

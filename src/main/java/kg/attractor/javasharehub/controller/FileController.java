@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -45,6 +46,18 @@ public class FileController {
         model.addAttribute("file", fileDto);
         model.addAttribute("categories", fileService.findAllCategory());
         return "file/upload";
+    }
+
+    @GetMapping("download/{fileName}")
+    public String downloadFile(@PathVariable String fileName, Model model){
+        model.addAttribute("name", fileName);
+        return "file/downloadPage";
+    }
+
+    @PostMapping("download/{fileName}")
+    public String downloadFile(@PathVariable String fileName, Model model, Authentication auth){
+        fileService.download(fileName, auth);
+        return "redirect:/users/profile";
     }
 
 }

@@ -49,7 +49,6 @@ public class SecurityConfig {
                         // Public endpoints
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/").permitAll()
-                        .requestMatchers("/images/**").permitAll()
 
 
                         // all other requests
