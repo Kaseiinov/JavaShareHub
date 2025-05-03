@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002 create table user <-> file
+      author: Kaseiinov
+      changes:
+        - createTable:
+            tableName: usr_file
+            columns:
+              - column:
+                  name: usr_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    foreignKeyName: fk_usr_id_to_usr_file
+                    references: users(id)
+              - column:
+                  name: file_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    foreignKeyName: fk_file_id_to_usr
+                    references: file(id)
