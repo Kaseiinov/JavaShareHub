@@ -1,43 +1,14 @@
 <#import "layout.ftlh" as main>
-<@main.layout>
+<@main.layout ; spring>
 
-    <style>
-        .card {
-            border-radius: 25px;
-        }
-    </style>
-
-    <h2 class="mb-4 text-center">Список вакансий</h2>
-
-    <form method="get" action="/" class="d-flex justify-content-end mb-3">
-        <select name="sortBy" class="form-select w-auto" onchange="this.form.submit()">
-            <option value="">Сортировать по</option>
-            <option value="dateDesc" <#if sortBy == "dateDesc">selected</#if>>Сначала новые</option>
-            <option value="dateAsc" <#if sortBy == "dateAsc">selected</#if>>Сначала старые</option>
-        </select>
-    </form>
-
-    <#list vacancies as vacancy>
-
-        <div class="card w-100 mb-3 overflow-hidden">
+    <#list files as file>
+        <div class="card w-100 mb-3" style="width: 18rem;">
             <div class="card-body">
-                <h5 class="card-title">${vacancy.name}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">
-                    <#if vacancy.expFrom?? || vacancy.expTo??>
-                        ${vacancy.expFrom!0} - ${vacancy.expTo!0}
-                    <#else>
-                        Без опыта
-                    </#if>
-                </h6>
-                <p class="card-text">${vacancy.description!}</p>
-                <a href="/" class="btn btn-outline-info">Card link</a>
-                <a href="/" class="btn btn-outline-info">Another link</a>
+                <h5 class="card-title">${file.name}</h5>
+                <a href="/files/download/${file.name}" class="card-link">Download</a>
             </div>
         </div>
-
-
     </#list>
-
 
     <nav >
         <div class="d-flex justify-content-center">

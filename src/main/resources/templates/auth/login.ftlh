@@ -47,7 +47,6 @@
                             <!-- Submit button -->
                             <div class="d-flex align-items-center mb-4">
                                 <button type="submit" class="btn btn-primary me-3">Sign in</button>
-                                <a href="/auth/forgot_password" class="text-decoration-none text-primary small">Forgot password?</a>
                             </div>
                         </form>
 

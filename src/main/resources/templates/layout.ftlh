@@ -31,15 +31,12 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
-<#--                <li class="nav-item">-->
-<#--                    <a class="nav-link" href="/users/profile">Profile</a>-->
-<#--                </li>-->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Vacancies
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/vacancies">Vacancies</a></li>
+                        <li><a class="dropdown-item" href="#">Vacancies</a></li>
                     </ul>
                 </li>
 
@@ -48,22 +45,15 @@
                         Resumes
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/resumes">Resumes</a></li>
+                        <li><a class="dropdown-item" href="#">Resumes</a></li>
                     </ul>
                 </li>
 
             </ul>
-<#--            <a href="/auth/login" class="btn btn-outline-success ">Login</a>-->
-<#--            <a href="/auth/register" class="btn btn-outline-success ms-4">Register</a>-->
+
             <#if user??>
                 <a href="/users/profile" class="nav-link mr4-l">
                     Profile
-                    <#--                <#list user.authorities as auth>-->
-                    <#--                    <span class="text-danger">${auth}</span>-->
-                    <#--                    <#if auth?has_next>-->
-                    <#--                        /-->
-                    <#--                    </#if>-->
-                    <#--                </#list>-->
                 </a>
                 <#if _csrf??>
                     <form action="/logout" method="post">
@@ -78,10 +68,8 @@
                        id="logout">Logout</a>
                 </#if>
             <#else>
-                <a href="/auth/login"
-                   class="btn btn-outline-info m-2">Login</a>
-                <a href="/auth/register"
-                   class="btn btn-outline-info m-2">Register</a>
+                <a href="/auth/login" class="btn btn-outline-info m-2">Login</a>
+                <a href="/auth/register" class="btn btn-outline-info m-2">Register</a>
             </#if>
         </div>
     </div>
