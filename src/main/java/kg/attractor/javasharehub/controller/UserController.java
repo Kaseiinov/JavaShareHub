@@ -1,6 +1,9 @@
 package kg.attractor.javasharehub.controller;
 
 import jakarta.validation.Valid;
+import kg.attractor.javasharehub.dto.UserDto;
+import kg.attractor.javasharehub.model.User;
+import kg.attractor.javasharehub.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -18,6 +21,13 @@ import java.util.List;
 @RequestMapping("users")
 @RequiredArgsConstructor
 public class UserController {
+    private final UserService userService;
 
+    @GetMapping("profile")
+    public String profile(Model model, Authentication auth) {
+        UserDto user  = userService.getUserByEmail(auth.getName());
+        model.addAttribute("user", user);
+        return "auth/profile";
+    }
 
 }

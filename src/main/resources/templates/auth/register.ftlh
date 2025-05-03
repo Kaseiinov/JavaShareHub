@@ -41,24 +41,6 @@
                                     </#if>
 
                                     <div data-mdb-input-init class="form-outline mb-4">
-                                        <label class="form-label" for="form3Example1cg">Your first name</label>
-                                        <@spring.formInput "userDto.name" 'id="form3Example1cg" class="form-control form-control-lg"' />
-                                        <@spring.showErrors "<br>" "error text-danger" />
-                                    </div>
-
-                                    <div data-mdb-input-init class="form-outline mb-4">
-                                        <label class="form-label" for="form3Example2cg">Your last name</label>
-                                        <@spring.formInput "userDto.surname" 'id="form3Example2cg" class="form-control form-control-lg"' />
-                                        <@spring.showErrors "<br>" "error text-danger" />
-                                    </div>
-
-                                    <div data-mdb-input-init class="form-outline mb-4">
-                                        <label class="form-label" for="form3Example0cg">Your phone number</label>
-                                        <@spring.formInput "userDto.phoneNumber" 'id="form3Example0cg" class="form-control form-control-lg"' />
-                                        <@spring.showErrors "<br>" "error text-danger" />
-                                    </div>
-
-                                    <div data-mdb-input-init class="form-outline mb-4">
                                         <label class="form-label" for="form3Example3cg">Your Email</label>
                                         <@spring.formInput "userDto.email" 'id="form3Example3cg" class="form-control form-control-lg"' />
                                         <@spring.showErrors "<br>" "error text-danger" />
@@ -67,14 +49,6 @@
                                     <div data-mdb-input-init class="form-outline mb-4">
                                         <label class="form-label" for="form3Example4cg">Password</label>
                                         <@spring.formInput "userDto.password" 'id="form3Example4cg" class="form-control form-control-lg"' />
-                                        <@spring.showErrors "<br>" "error text-danger" />
-                                    </div>
-
-                                    <div>
-                                        <@spring.formRadioButtons "userDto.accountType",
-                                        {"applicant":"Applicant", "employer":"Employer"},
-                                        "",
-                                        'class="form-check-input" inline="true"' />
                                         <@spring.showErrors "<br>" "error text-danger" />
                                     </div>
 

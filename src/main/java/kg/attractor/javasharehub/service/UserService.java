@@ -7,4 +7,6 @@ import javax.management.relation.RoleNotFoundException;
 
 public interface UserService {
     void addUser(UserDto userDto) throws SuchEmailAlreadyExistsException, RoleNotFoundException;
+
+    UserDto getUserByEmail(String email);
 }

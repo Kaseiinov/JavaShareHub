@@ -2,6 +2,7 @@ package kg.attractor.javasharehub.service.impl;
 
 import kg.attractor.javasharehub.dto.UserDto;
 import kg.attractor.javasharehub.exceptions.SuchEmailAlreadyExistsException;
+import kg.attractor.javasharehub.exceptions.UserNotFoundException;
 import kg.attractor.javasharehub.model.Role;
 import kg.attractor.javasharehub.model.User;
 import kg.attractor.javasharehub.repository.RoleRepository;
@@ -41,5 +42,20 @@ public class UserServiceImpl implements UserService {
         role.setUsers(Arrays.asList(user));
 
         userRepository.save(user);
+    }
+
+    @Override
+    public UserDto getUserByEmail(String email){
+        User user = userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
+        return userBuilder(user);
+    }
+
+    public UserDto userBuilder(User user){
+        return UserDto.builder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .password(user.getPassword())
+                .enabled(user.getEnabled())
+                .build();
     }
 }
