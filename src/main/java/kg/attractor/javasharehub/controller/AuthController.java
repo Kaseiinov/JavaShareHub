@@ -6,6 +6,7 @@ import kg.attractor.javasharehub.dto.UserDto;
 import kg.attractor.javasharehub.exceptions.SuchEmailAlreadyExistsException;
 import kg.attractor.javasharehub.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.management.relation.RoleNotFoundException;
 
+@Slf4j
 @Controller
 @RequestMapping("auth")
 @RequiredArgsConstructor
@@ -28,6 +30,7 @@ public class AuthController {
     @PostMapping("register")
     public String register(@Valid UserDto userDto, BindingResult bindingResult, Model model) throws RoleNotFoundException, SuchEmailAlreadyExistsException {
         if(!bindingResult.hasErrors()){
+            log.info("register {}", userDto.getEmail());
             userService.addUser(userDto);
             return "redirect:/auth/login";
         }

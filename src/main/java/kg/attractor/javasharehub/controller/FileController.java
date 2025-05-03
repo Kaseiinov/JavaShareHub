@@ -9,6 +9,7 @@ import kg.attractor.javasharehub.model.User;
 import kg.attractor.javasharehub.service.FileService;
 import kg.attractor.javasharehub.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequestMapping("files")
 @RequiredArgsConstructor
@@ -41,6 +43,7 @@ public class FileController {
             UserDto user = userService.getUserByEmail(auth.getName());
             fileDto.setUsers(List.of(user));
             fileService.upload(fileDto);
+            log.info("upload file {}", fileDto.getFileName());
             return "redirect:/users/profile";
         }
         model.addAttribute("file", fileDto);
@@ -57,6 +60,7 @@ public class FileController {
     @PostMapping("download/{fileName}")
     public String downloadFile(@PathVariable String fileName, Model model, Authentication auth){
         fileService.download(fileName, auth);
+        log.info("download file {}", fileName);
         return "redirect:/users/profile";
     }
 
