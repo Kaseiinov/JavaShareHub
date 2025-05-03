@@ -4,8 +4,9 @@
     <#list files as file>
         <div class="card w-100 mb-3" style="width: 18rem;">
             <div class="card-body">
-                <h5 class="card-title">${file.name}</h5>
-                <a href="/files/download/${file.name}" class="card-link">Download</a>
+                <h5 class="card-title">${file.fileName}</h5>
+                <p>Status - ${file.status}</p>
+                <a href="/files/download/${file.fileName}" class="card-link">Download</a>
             </div>
         </div>
     </#list>

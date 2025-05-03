@@ -32,6 +32,16 @@
         </div>
 
         <div class="mb-3">
+            <label for="disabledSelect" class="form-label">Статус:</label>
+            <select name="status" id="disabledSelect" class="form-select">
+                <option>Выберите категорию</option>
+                <option value="PUBLIC">PUBLIC</option>
+                <option value="PRIVATE">PRIVATE</option>
+            </select>
+            <#--            <@spring.showErrors "<br>" "error text-danger" />-->
+        </div>
+
+        <div class="mb-3">
             <label for="formFileMultiple" class="form-label">File</label>
             <input name="file" class="form-control" type="file" id="formFileMultiple">
 <#--            <@spring.showErrors "<br>" "error text-danger" />-->

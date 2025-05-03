@@ -44,7 +44,7 @@ public class FileServiceImpl implements FileService {
 
         file.setFileName(filename);
         file.setCategory(categoryRepository.findById(fileDto.getCategoryId()).orElseThrow());
-        file.setStatus("PUBLIC");
+        file.setStatus(fileDto.getStatus().toUpperCase());
 
         fileRepository.save(file);
     }
@@ -82,6 +82,7 @@ public class FileServiceImpl implements FileService {
                                 .enabled(u.getEnabled())
                                 .build())
                                 .toList())
+                        .status(e.getStatus().toUpperCase())
                         .build())
                 .toList();
         return new PageImpl<>(filesDto, pageable, files.getTotalElements());

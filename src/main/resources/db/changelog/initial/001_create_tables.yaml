@@ -124,13 +124,6 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: user_id
-                  type: bigint
-                  constraints:
-                    nullable: false
-                    foreignKeyName: fk_user_id_file
-                    references: users(id)
-              - column:
                   name: category_id
                   type: bigint
                   constraints:

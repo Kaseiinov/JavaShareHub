@@ -1,5 +1,6 @@
 package kg.attractor.javasharehub.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import kg.attractor.javasharehub.model.Category;
 import kg.attractor.javasharehub.model.User;
@@ -23,4 +24,7 @@ public class FileDto {
     @NotNull
     private MultipartFile file;
     private String fileName;
+    @NotBlank
+    private String status;
+
 }
