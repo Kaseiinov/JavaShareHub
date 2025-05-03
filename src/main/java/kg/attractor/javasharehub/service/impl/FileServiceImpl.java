@@ -1,11 +1,17 @@
 package kg.attractor.javasharehub.service.impl;
 
+import kg.attractor.javasharehub.dto.CategoryDto;
 import kg.attractor.javasharehub.dto.FileDto;
 import kg.attractor.javasharehub.dto.UserDto;
+import kg.attractor.javasharehub.exceptions.CategoryNotFoundException;
+import kg.attractor.javasharehub.model.Category;
 import kg.attractor.javasharehub.model.File;
+import kg.attractor.javasharehub.model.User;
+import kg.attractor.javasharehub.repository.CategoryRepository;
 import kg.attractor.javasharehub.repository.FileRepository;
 import kg.attractor.javasharehub.repository.UserRepository;
 import kg.attractor.javasharehub.service.FileService;
+import kg.attractor.javasharehub.util.FileUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -19,11 +25,47 @@ import java.util.List;
 public class FileServiceImpl implements FileService {
     private final FileRepository fileRepository;
     private final UserRepository userRepository;
+    private final CategoryRepository categoryRepository;
+    private final FileUtil fileUtil;
+
+    @Override
+    public void upload(FileDto fileDto){
+        String filename = fileUtil.saveUploadFile(fileDto.getFile(), "files/");
+
+//        User user = userRepository.findById(fileDto.getUsers().getLast().getId()).orElseThrow(UserNotFoundException::new);
+
+        File file = new File();
+        file.setUsers(fileDto.getUsers().stream().map(e -> User.builder()
+                .id(e.getId())
+                .email(e.getEmail())
+                .password(e.getPassword())
+                .enabled(e.getEnabled())
+                .build()).toList());
+
+        file.setFileName(filename);
+        file.setCategory(categoryRepository.findById(fileDto.getCategoryId()).orElseThrow());
+        file.setStatus("PUBLIC");
+
+        fileRepository.save(file);
+    }
 
     @Override
     public Page<FileDto> findAllFiles(Pageable pageable) {
         Page<File> files = fileRepository.findAll(pageable);
         return filePageBuilder(files, pageable);
+    }
+
+    @Override
+    public List<CategoryDto> findAllCategory(){
+        List<Category> categories = categoryRepository.findAll();
+
+        return categories.stream().map(
+                e -> CategoryDto.builder()
+                        .id(e.getId())
+                        .name(e.getName())
+                        .build())
+                .toList();
+
     }
 
     public Page<FileDto> filePageBuilder(Page<File> files, Pageable pageable) {
@@ -32,7 +74,7 @@ public class FileServiceImpl implements FileService {
                 .map(e -> FileDto.builder()
                         .id(e.getId())
                         .fileName(e.getFileName())
-                        .category(e.getCategory())
+                        .categoryId(e.getCategory().getId())
                         .Users(e.getUsers().stream().map(u -> UserDto.builder()
                                 .id(u.getId())
                                 .email(u.getEmail())

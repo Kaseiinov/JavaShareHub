@@ -1,15 +1,17 @@
 package kg.attractor.javasharehub.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
 @Setter
 @Getter
+@Builder
 @Entity
 @Table(name = "users")
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

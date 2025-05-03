@@ -1,7 +1,9 @@
 package kg.attractor.javasharehub.exceptions;
 
-public class CategoryNotFoundException extends RuntimeException {
+import java.util.NoSuchElementException;
+
+public class CategoryNotFoundException extends NoSuchElementException {
   public CategoryNotFoundException(String message) {
-    super(message);
+    super("Category not found: ");
   }
 }
