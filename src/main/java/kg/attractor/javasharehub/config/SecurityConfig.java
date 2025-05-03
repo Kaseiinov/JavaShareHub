@@ -49,6 +49,10 @@ public class SecurityConfig {
                         // Public endpoints
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/").permitAll()
+                        .requestMatchers("/files").permitAll()
+
+                        .requestMatchers("/files/**").fullyAuthenticated()
+                        .requestMatchers("/users/profile/").fullyAuthenticated()
 
 
                         // all other requests
