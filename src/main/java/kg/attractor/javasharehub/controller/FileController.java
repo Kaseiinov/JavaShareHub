@@ -10,6 +10,12 @@ import kg.attractor.javasharehub.service.FileService;
 import kg.attractor.javasharehub.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +25,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Slf4j
@@ -52,16 +62,12 @@ public class FileController {
     }
 
     @GetMapping("download/{fileName}")
-    public String downloadFile(@PathVariable String fileName, Model model){
-        model.addAttribute("name", fileName);
-        return "file/downloadPage";
+    public ResponseEntity<?> downloadFile(@PathVariable String fileName) throws IOException {
+        return fileService.download(fileName);
     }
 
-    @PostMapping("download/{fileName}")
-    public String downloadFile(@PathVariable String fileName, Model model, Authentication auth){
-        fileService.download(fileName, auth);
-        log.info("download file {}", fileName);
-        return "redirect:/users/profile";
-    }
+
+
+
 
 }

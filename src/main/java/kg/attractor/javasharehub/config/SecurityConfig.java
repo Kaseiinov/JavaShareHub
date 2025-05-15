@@ -51,12 +51,12 @@ public class SecurityConfig {
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/files").permitAll()
 
-                        .requestMatchers("/files/**").fullyAuthenticated()
+                        .requestMatchers("/files/**").permitAll()
                         .requestMatchers("/users/profile/").fullyAuthenticated()
 
 
                         // all other requests
-                        .anyRequest().fullyAuthenticated()
+                        .anyRequest().permitAll()
                 );
 
         return http.build();

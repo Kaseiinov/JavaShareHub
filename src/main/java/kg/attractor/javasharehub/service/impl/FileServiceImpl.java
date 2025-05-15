@@ -4,7 +4,6 @@ import kg.attractor.javasharehub.dto.CategoryDto;
 import kg.attractor.javasharehub.dto.FileDto;
 import kg.attractor.javasharehub.dto.UserDto;
 import kg.attractor.javasharehub.exceptions.FileNotFoundException;
-import kg.attractor.javasharehub.exceptions.UserNotFoundException;
 import kg.attractor.javasharehub.model.Category;
 import kg.attractor.javasharehub.model.File;
 import kg.attractor.javasharehub.model.User;
@@ -14,10 +13,12 @@ import kg.attractor.javasharehub.repository.UserRepository;
 import kg.attractor.javasharehub.service.FileService;
 import kg.attractor.javasharehub.util.FileUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,17 +44,8 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public void download(String fileName, Authentication auth){
-        User user = userRepository.findByEmail(auth.getName())
-                .orElseThrow(UserNotFoundException::new);
-
-        File existingFile = fileRepository.findByFileName(fileName).orElseThrow(FileNotFoundException::new);
-
-        // 3. Связываем файл с пользователем
-        if (!existingFile.getUsers().contains(user)) {
-            existingFile.getUsers().add(user);
-            fileRepository.save(existingFile);
-        }
+    public ResponseEntity<?> download(String fileName){
+        return fileUtil.getOutputFile(fileName, "files/", MediaType.ALL);
     }
 
     @Override

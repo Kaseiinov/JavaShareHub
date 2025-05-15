@@ -7,7 +7,7 @@
                 <h5 class="card-title">Name - ${file.fileName}</h5>
                 <p>Status - ${file.status}</p>
                 <#if file.status == 'PUBLIC'>
-                    <a href="/files/download/${file.fileName}" class="card-link">Download</a>
+                    <a href="/files/download/${file.fileName}" class="card-link" download>Download</a>
                 </#if>
             </div>
         </div>

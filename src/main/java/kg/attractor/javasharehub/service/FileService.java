@@ -5,6 +5,7 @@ import kg.attractor.javasharehub.dto.FileDto;
 import kg.attractor.javasharehub.model.Category;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 
 import java.util.List;
@@ -14,7 +15,8 @@ public interface FileService {
 
     FileDto findByName(String fileName);
 
-    void download(String fileName, Authentication auth);
+
+    ResponseEntity<?> download(String fileName);
 
     void upload(FileDto fileDto);
 
